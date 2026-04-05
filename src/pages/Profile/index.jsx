@@ -35,136 +35,129 @@ const Profile = () => {
 
   return (
     <div className="min-h-screen bg-black text-white">
-
-      {/* HEADER WRAPPER - relative container for banner + avatar */}
-      <div className="relative pb-12 md:pb-16">
-
-        {/* Banner */}
-        <div className="bg-white/5 h-48 md:h-64 w-full">
-          <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-12 pt-4">
-            <div className="flex justify-end">
-              <button
-                onClick={() => setIsEditing(!isEditing)}
-                className="px-4 py-1.5 md:px-5 md:py-2 text-xs md:text-sm uppercase tracking-wider border border-white/30 rounded-full hover:border-white/70 hover:bg-white/5 transition-all"
-              >
-                {isEditing ? 'save' : 'edit profile'}
-              </button>
-            </div>
+      {/* Header with gradient background */}
+      <div className="bg-gradient-to-r from-white/5 via-white/10 to-white/5 pt-8 pb-20 md:pt-12 md:pb-24">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-12">
+          
+          {/* Edit Button */}
+          <div className="flex justify-end mb-8">
+            <button 
+              onClick={() => setIsEditing(!isEditing)}
+              className="px-4 py-1.5 md:px-5 md:py-2 text-xs md:text-sm uppercase tracking-wider border border-white/30 rounded-full hover:border-white/70 hover:bg-white/5 transition-all"
+            >
+              {isEditing ? 'save' : 'edit profile'}
+            </button>
           </div>
-        </div>
 
-        {/* Avatar - centered on the banner bottom edge */}
-        <div className="flex justify-center mt-[-48px] md:mt-[-64px]">
-          <div className="relative z-10">
-            <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-white/10 border-4 border-black flex items-center justify-center shadow-xl">
-              <span className="text-3xl md:text-4xl font-light text-white">{user.avatar}</span>
+          {/* Avatar Section - Side by side with user info */}
+          <div className="flex flex-col md:flex-row md:items-end gap-6 md:gap-8">
+            {/* Avatar - Large and prominent */}
+            <div className="relative">
+              <div className="w-28 h-28 md:w-36 md:h-36 rounded-full bg-white/10 border-4 border-black flex items-center justify-center shadow-2xl">
+                <span className="text-4xl md:text-5xl font-light">{user.avatar}</span>
+              </div>
+              <div className="absolute bottom-2 right-2 w-4 h-4 bg-green-500 rounded-full border-2 border-black"></div>
             </div>
-            <div className="absolute bottom-2 right-2 w-4 h-4 bg-green-500 rounded-full border-2 border-black"></div>
+
+            {/* User Info - Next to avatar */}
+            <div className="flex-1 pb-2">
+              <h1 className="text-3xl md:text-4xl font-light tracking-wide">
+                {user.displayName}
+              </h1>
+              <p className="text-white/40 text-sm mt-1">@{user.username}</p>
+              
+              {isEditing ? (
+                <textarea
+                  value={bio}
+                  onChange={(e) => setBio(e.target.value)}
+                  className="mt-3 w-full max-w-md bg-white/5 border border-white/20 rounded-lg p-3 text-sm text-white/80 focus:outline-none focus:border-white/40 transition-all resize-none"
+                  rows="2"
+                />
+              ) : (
+                <p className="text-white/70 text-sm mt-3 max-w-md leading-relaxed">
+                  {user.bio}
+                </p>
+              )}
+              
+              <div className="flex flex-wrap gap-4 mt-3 text-xs text-white/40">
+                <div className="flex items-center gap-1">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="12 6 12 12 16 14" />
+                  </svg>
+                  <span>joined {user.joinedDate}</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                    <circle cx="12" cy="10" r="3" />
+                  </svg>
+                  <span>{user.location}</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" y1="14" x2="21" y2="3" />
+                  </svg>
+                  <a href="#" className="hover:text-white/70 transition-colors">{user.website}</a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* CONTENT */}
-      <div className="pt-4">
-        <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-12">
-          
-          {/* User Info */}
-          <div className="text-center mt-4">
-            <h1 className="text-2xl md:text-3xl font-light tracking-wide">
-              {user.displayName}
-            </h1>
-            <p className="text-white/40 text-sm mt-1">@{user.username}</p>
-            
-            {/* Bio */}
-            {isEditing ? (
-              <textarea
-                value={bio}
-                onChange={(e) => setBio(e.target.value)}
-                className="mt-3 w-full max-w-md mx-auto bg-white/5 border border-white/20 rounded-lg p-3 text-sm text-white/80 focus:outline-none focus:border-white/40 transition-all resize-none text-center"
-                rows="3"
-              />
-            ) : (
-              <p className="text-white/70 text-sm mt-3 max-w-md mx-auto leading-relaxed">
-                {user.bio}
-              </p>
-            )}
-            
-            {/* Metadata */}
-            <div className="flex flex-wrap gap-4 justify-center mt-3 text-xs text-white/40">
-              <div className="flex items-center gap-1">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <circle cx="12" cy="12" r="10" />
-                  <polyline points="12 6 12 12 16 14" />
-                </svg>
-                <span>joined {user.joinedDate}</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                  <circle cx="12" cy="10" r="3" />
-                </svg>
-                <span>{user.location}</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                  <polyline points="15 3 21 3 21 9" />
-                  <line x1="10" y1="14" x2="21" y2="3" />
-                </svg>
-                <a href="#" className="hover:text-white/70 transition-colors">{user.website}</a>
-              </div>
-            </div>
+      {/* Content Section */}
+      <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-12">
+        {/* Stats Row */}
+        <div className="flex gap-6 md:gap-8 py-4 border-b border-white/10 mt-4 mb-6">
+          <div className="text-center">
+            <p className="text-xl md:text-2xl font-light">{user.posts}</p>
+            <p className="text-[10px] uppercase tracking-wider text-white/40 mt-1">posts</p>
           </div>
+          <button className="text-center hover:opacity-70 transition-opacity">
+            <p className="text-xl md:text-2xl font-light">{user.followers.toLocaleString()}</p>
+            <p className="text-[10px] uppercase tracking-wider text-white/40 mt-1">followers</p>
+          </button>
+          <button className="text-center hover:opacity-70 transition-opacity">
+            <p className="text-xl md:text-2xl font-light">{user.following.toLocaleString()}</p>
+            <p className="text-[10px] uppercase tracking-wider text-white/40 mt-1">following</p>
+          </button>
+        </div>
 
-          {/* Stats Row */}
-          <div className="flex gap-6 md:gap-8 justify-center py-4 border-y border-white/10 mt-6 mb-6">
-            <div className="text-center">
-              <p className="text-xl md:text-2xl font-light">{user.posts}</p>
-              <p className="text-[10px] uppercase tracking-wider text-white/40 mt-1">posts</p>
-            </div>
-            <button className="text-center hover:opacity-70 transition-opacity">
-              <p className="text-xl md:text-2xl font-light">{user.followers.toLocaleString()}</p>
-              <p className="text-[10px] uppercase tracking-wider text-white/40 mt-1">followers</p>
-            </button>
-            <button className="text-center hover:opacity-70 transition-opacity">
-              <p className="text-xl md:text-2xl font-light">{user.following.toLocaleString()}</p>
-              <p className="text-[10px] uppercase tracking-wider text-white/40 mt-1">following</p>
-            </button>
-          </div>
+        {/* Follow Button */}
+        <div className="mb-6">
+          <button
+            onClick={() => setIsFollowing(!isFollowing)}
+            className={`px-8 py-2.5 rounded-full text-sm uppercase tracking-wider transition-all ${
+              isFollowing
+                ? 'bg-white/10 border border-white/30 text-white/80 hover:bg-white/20'
+                : 'bg-white text-black hover:bg-white/90'
+            }`}
+          >
+            {isFollowing ? 'following' : 'follow'}
+          </button>
+        </div>
 
-          {/* Follow Button */}
-          <div className="flex justify-center mb-6">
+        {/* Tabs */}
+        <div className="flex gap-8 border-b border-white/10">
+          {['posts', 'reposts', 'likes'].map((tab) => (
             <button
-              onClick={() => setIsFollowing(!isFollowing)}
-              className={`px-8 py-2.5 rounded-full text-sm uppercase tracking-wider transition-all ${
-                isFollowing
-                  ? 'bg-white/10 border border-white/30 text-white/80 hover:bg-white/20'
-                  : 'bg-white text-black hover:bg-white/90'
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`pb-3 px-1 text-sm uppercase tracking-wider transition-all duration-300 relative ${
+                activeTab === tab
+                  ? 'text-white'
+                  : 'text-white/40 hover:text-white/70'
               }`}
             >
-              {isFollowing ? 'following' : 'follow'}
+              {tab}
+              {activeTab === tab && (
+                <span className="absolute bottom-0 left-0 w-full h-px bg-white"></span>
+              )}
             </button>
-          </div>
-
-          {/* Tabs */}
-          <div className="flex gap-8 justify-center border-b border-white/10">
-            {['posts', 'reposts', 'likes'].map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`pb-3 px-1 text-sm uppercase tracking-wider transition-all duration-300 relative ${
-                  activeTab === tab
-                    ? 'text-white'
-                    : 'text-white/40 hover:text-white/70'
-                }`}
-              >
-                {tab}
-                {activeTab === tab && (
-                  <span className="absolute bottom-0 left-0 w-full h-px bg-white"></span>
-                )}
-              </button>
-            ))}
-          </div>
+          ))}
         </div>
       </div>
 
