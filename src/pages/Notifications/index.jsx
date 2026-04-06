@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import NavbarDesktop from './NavbarDesktop';
-import NavbarMobile from './NavbarMobile';
+import NotificationsDesktop from './NotificationsDesktop';
+import NotificationsMobile from './NotificationsMobile';
 
-const Navbar = () => {
+const NotificationsPage = () => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ const Navbar = () => {
     return () => window.removeEventListener('resize', checkDevice);
   }, []);
 
-  return isMobile ? <NavbarMobile /> : <NavbarDesktop />;
+  return isMobile ? <NotificationsMobile /> : <NotificationsDesktop />;
 };
 
-export default Navbar;
+export {NotificationsPage};

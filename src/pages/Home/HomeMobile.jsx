@@ -43,6 +43,8 @@ const HomeMobile = () => {
     { id: 3, username: 'marcus_void', avatar: 'M' },
     { id: 4, username: 'julia_echo', avatar: 'J' },
     { id: 5, username: 'nova_arch', avatar: 'N' },
+    { id: 6, username: 'echo_void', avatar: 'E' },
+    { id: 7, username: 'static_noise', avatar: 'S' },
   ];
 
   const handleLike = (postId) => {
@@ -53,24 +55,26 @@ const HomeMobile = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white pb-20">
-      {/* Stories Row - Horizontal Scroll */}
-      <div className="px-4 py-4 overflow-x-auto scrollbar-hide">
-        <div className="flex gap-4">
-          {stories.map((story) => (
-            <div key={story.id} className="flex flex-col items-center gap-1 cursor-pointer group flex-shrink-0">
-              <div className={`w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 ${
-                story.isAdd 
-                  ? 'bg-white/10 border-2 border-dashed border-white/30 group-hover:border-white/60' 
-                  : 'bg-gradient-to-br from-white/20 to-white/5 ring-2 ring-white/30 group-hover:ring-white/60'
-              }`}>
-                <span className="text-lg font-light">{story.avatar}</span>
+    <div className="min-h-screen bg-black text-white pb-20 pt-20">
+      {/* Stories Row - Fixed horizontal scroll */}
+      <div className="border-b border-white/10">
+        <div className="px-4 py-4 overflow-x-auto overflow-y-hidden scrollbar-hide">
+          <div className="flex gap-4" style={{ minWidth: 'min-content' }}>
+            {stories.map((story) => (
+              <div key={story.id} className="flex flex-col items-center gap-1 cursor-pointer group flex-shrink-0">
+                <div className={`w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 ${
+                  story.isAdd 
+                    ? 'bg-white/10 border-2 border-dashed border-white/30 group-hover:border-white/60' 
+                    : 'bg-gradient-to-br from-white/20 to-white/5 ring-2 ring-white/30 group-hover:ring-white/60'
+                }`}>
+                  <span className="text-lg font-light">{story.avatar}</span>
+                </div>
+                <span className="text-xs text-white/60 group-hover:text-white transition-colors text-center w-16 break-words leading-tight">
+                  {story.username}
+                </span>
               </div>
-              <span className="text-xs text-white/60 group-hover:text-white transition-colors truncate max-w-[64px]">
-                {story.username}
-              </span>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
 
@@ -146,11 +150,9 @@ const HomeMobile = () => {
                 </button>
                 <button className="text-white/40 hover:text-white/70 transition-colors">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                      <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
-                      <polyline points="16 6 12 2 8 6" />
-                      <line x1="12" y1="2" x2="12" y2="15" />
-                    </svg>
+                    <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
+                    <polyline points="16 6 12 2 8 6" />
+                    <line x1="12" y1="2" x2="12" y2="15" />
                   </svg>
                 </button>
               </div>
@@ -173,28 +175,6 @@ const HomeMobile = () => {
         <button className="text-xs text-white/40 hover:text-white/70 transition-colors uppercase tracking-wider">
           Load more →
         </button>
-      </div>
-
-      {/* Bottom Navigation - Mobile */}
-      <div className="fixed bottom-0 left-0 right-0 bg-black/90 backdrop-blur-lg border-t border-white/10 py-2 px-4">
-        <div className="flex justify-around">
-          {[
-            { name: 'Home', icon: 'M3 9l9-7 9 7v11a2 2 0 0 1-2 2h-5v-8H7v8H5a2 2 0 0 1-2-2z', active: true },
-            { name: 'Search', icon: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z', active: false },
-            { name: 'Post', icon: 'M12 4v16m8-8H4', active: false },
-            { name: 'Activity', icon: 'M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9 M13.73 21a2 2 0 0 1-3.46 0', active: false },
-            { name: 'Profile', icon: 'M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M12 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8z', active: false },
-          ].map((item) => (
-            <button key={item.name} className="flex flex-col items-center gap-1">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={item.active ? 'text-white' : 'text-white/40'}>
-                <path d={item.icon} />
-              </svg>
-              <span className={`text-[10px] ${item.active ? 'text-white' : 'text-white/40'}`}>
-                {item.name}
-              </span>
-            </button>
-          ))}
-        </div>
       </div>
 
       <style>{`

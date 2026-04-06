@@ -4,6 +4,16 @@ const HomeDesktop = () => {
   const [likedPosts, setLikedPosts] = useState({});
   const [activeTab, setActiveTab] = useState('for-you');
 
+  const stories = [
+    { id: 1, username: 'Your Story', avatar: 'Y', isAdd: true },
+    { id: 2, username: 'sarah_chen', avatar: 'S' },
+    { id: 3, username: 'marcus_void', avatar: 'M' },
+    { id: 4, username: 'julia_echo', avatar: 'J' },
+    { id: 5, username: 'nova_arch', avatar: 'N' },
+    { id: 6, username: 'echo_void', avatar: 'E' },
+    { id: 7, username: 'static_noise', avatar: 'S' },
+  ];
+
   const posts = [
     {
       id: 1,
@@ -62,6 +72,28 @@ const HomeDesktop = () => {
     <div className="min-h-screen bg-black text-white">
       <div className="max-w-6xl mx-auto px-8 py-6 mt-16">
         
+        {/* Stories Row */}
+        <div className="bg-white/5 rounded-2xl border border-white/10 mb-6 overflow-hidden">
+          <div className="px-6 py-4 overflow-x-auto scrollbar-hide">
+            <div className="flex gap-6" style={{ minWidth: 'min-content' }}>
+              {stories.map((story) => (
+                <div key={story.id} className="flex flex-col items-center gap-2 cursor-pointer group flex-shrink-0">
+                  <div className={`w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 ${
+                    story.isAdd
+                      ? 'bg-white/10 border-2 border-dashed border-white/30 group-hover:border-white/60'
+                      : 'bg-gradient-to-br from-white/20 to-white/5 ring-2 ring-white/30 group-hover:ring-white/60'
+                  }`}>
+                    <span className="text-lg font-light">{story.avatar}</span>
+                  </div>
+                  <span className="text-xs text-white/60 group-hover:text-white transition-colors text-center w-16 break-words leading-tight">
+                    {story.username}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
         {/* Create Post - Wider */}
         <div className="bg-white/5 rounded-2xl p-5 border border-white/10 mb-6">
           <textarea 
@@ -202,6 +234,11 @@ const HomeDesktop = () => {
           </button>
         </div>
       </div>
+
+      <style>{`
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+      `}</style>
     </div>
   );
 };

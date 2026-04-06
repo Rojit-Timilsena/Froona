@@ -1,7 +1,8 @@
 import {Home} from "./Home";
-import { Explore } from "./Explore/Explore";
+import { Explore } from "./Explore";
 import { Messages } from "./Messages";
 import { Profile } from "./Profile";
-import { Feed } from "./Feed";
+import { NotificationsPage } from "./Notifications";
 
-export {Home, Explore, Messages, Profile, Feed}
+
+export {Home, Explore, Messages, Profile, NotificationsPage};

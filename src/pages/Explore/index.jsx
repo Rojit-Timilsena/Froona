@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import NavbarDesktop from './NavbarDesktop';
-import NavbarMobile from './NavbarMobile';
+import ExploreDesktop from './ExploreDesktop';
+import ExploreMobile from './ExploreMobile';
 
-const Navbar = () => {
+const Explore = () => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ const Navbar = () => {
     return () => window.removeEventListener('resize', checkDevice);
   }, []);
 
-  return isMobile ? <NavbarMobile /> : <NavbarDesktop />;
+  return isMobile ? <ExploreMobile /> : <ExploreDesktop />;
 };
 
-export default Navbar;
+export {Explore};
